@@ -1,1 +1,1 @@
-# ServiceMaanagementPortal
+# ServiceManagementPortal
