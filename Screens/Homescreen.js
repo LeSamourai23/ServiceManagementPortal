@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, SafeAreaView, Platform, StatusBar, Dimensions, Image, TouchableOpacity, ScrollView, FlatList } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, SafeAreaView, Platform, StatusBar, Dimensions, Image, TouchableOpacity, ScrollView, FlatList, ActivityIndicator } from 'react-native'
+import React, {useState, useEffect} from 'react'
 import Logo from '../assets/logo.png'
 import HomescreenButtons from '../Components/HomescreenButtons'
 import UserIcon from '../assets/user.png'
@@ -8,60 +8,49 @@ import NotificationIcon from '../assets/bell.png'
 import SearchInput from '../Components/SearchBar'
 import filterIcon from '../assets/filter.png'
 import Stats from '../Components/Stats'
+import StatsClosed from '../Components/Stats2'
 import TicketSearchTabs from '../Components/TicketSearchTabs'
 import Filler from '../Components/Filler';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Ticket',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Ticket',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Ticket',
-  },
-  {
-    id: '5869q10f-3da1-471f-bd96-145571e29d72',
-    title: 'Fourth Ticket',
-  },
-  {
-    id: '5869110f-3da1-471f-bd96-145571e29d72',
-    title: 'Fifth Ticket',
-  },
-];
-
-
-const Item = ({title}) => (
-  <View style={styles.item}>
-    <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-      <Text style={{fontSize:12, fontWeight:'bold'}}>#2023-004386</Text>
-      <Text style={{fontSize:12, color:'gray'}}>12/01/23</Text>
-    </View>
-    <Text style={{marginTop:1, fontSize:17, fontWeight:'bold'}}>Scheduled Service</Text>
-    <Text style={{fontSize:15, marginTop:-12}}>Pankaj Jha</Text>
-    <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-      <View style={{flexDirection:'row'}}>
-        <Text>Allocated - </Text>
-        <Text style={{color:'red'}}>High Criticality</Text>
-      </View>
-      <View>
-        <Text style={{color:'#00377D', fontWeight:'bold'}}>Open</Text>
-      </View>
-    </View>
-  </View>
-);
-
-
 const Homescreen = ({navigation}) => {
 
- 
+  const [data, setData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [oldData, setOldData] = useState('');
+
+  useEffect(() => {
+    fetch('https://api.jsonserve.com/WgyZMo')
+    .then(res => res.json())
+    .then(response => {
+      console.log(response);
+      setData(response);
+      setOldData(response);
+    })
+  }, []);
+
+  if (!data) {
+    return (
+      <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+        <Image source={Logo} style={{height:100, width:220}}/>
+        <ActivityIndicator size="large"/>
+      </View>
+    );
+  }
+
+  const onSearch =(text)=>{
+    if(text==''){
+      setData(oldData)
+    }
+    else{
+      let tempList=data.filter(item=>{
+        return item.CustomerName.toLowerCase().indexOf(text.toLowerCase()) > -1;
+      })  
+      setData(tempList)
+    }
+  }
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -78,11 +67,16 @@ const Homescreen = ({navigation}) => {
                 style={styles.SearchBarContainer}>
         <View style={styles.logoContainer}>
           <HomescreenButtons image={UserIcon} onPress={()=> navigation.navigate('Account')}/>
-          <Image source={Logo} style={{height:85, width:200}}/>
+          <Image source={Logo} style={{height:100, width:220}}/>
           <HomescreenButtons image={NotificationIcon} onPress={()=> navigation.navigate('Notifications')}/>
         </View>
         <View>
-          <SearchInput/>
+          <SearchInput             
+            value={searchTerm} 
+            onChangeText={txt => { 
+              onSearch(txt);
+              setSearchTerm(txt);
+            }}/>
         </View>
       </LinearGradient>
       <ScrollView style={styles.filterContainer} horizontal showsHorizontalScrollIndicator={false}>
@@ -96,22 +90,49 @@ const Homescreen = ({navigation}) => {
         <TouchableOpacity style={{backgroundColor:'#F7F5F8', height:40, width:100, flexDirection:'row', alignItems:'center', justifyContent:'center', borderRadius:15, marginRight:5}}>
           <Text>Criticality</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{backgroundColor:'#F7F5F8', height:40, width:130, flexDirection:'row', alignItems:'center', justifyContent:'center', borderRadius:15, marginRight:5}}>
+        <TouchableOpacity onPress={()=> {
+            let tempList = data.sort((a,b)=> a.CustomerName>b.CustomerName ? 1 : -1);
+            setData(tempList);
+          }}
+          style={{backgroundColor:'#F7F5F8', height:40, width:130, flexDirection:'row', alignItems:'center', justifyContent:'center', borderRadius:15, marginRight:5}
+          }>
           <Text>Customer Name</Text>
         </TouchableOpacity>
       </ScrollView>
       <View style={styles.statsContainer}>
         <Stats text={'Open Tickets'} textStyle={{fontWeight:'bold', color:'#00377D'}} number={5}/>
-        <Stats text={'Closed Tickets'} textStyle={{fontWeight:'bold', color:'#FC5622'}} number={3}/>
+        <StatsClosed text={'Closed Tickets'} textStyle={{fontWeight:'bold', color:'#FC5622'}} number={3}/>
       </View>
-      <ScrollView style={styles.ticketContainer} vertical showsVerticalScrollIndicator={false}> 
+      <View style={styles.ticketContainer}> 
         <FlatList
-          data={DATA}
-          renderItem={({item}) => <Item title={item.title} />}
-          keyExtractor={item => item.id}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          data={data}
+          keyExtractor={(item) => item.id}
+          renderItem={({item})=> (
+            <TouchableOpacity onPress={()=> navigation.navigate('Full Ticket Details', {item})}>
+            <View style={styles.item}>
+              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                <Text style={{fontSize:12, fontWeight:'bold'}}>{item.TicketNumber}</Text>
+                <Text style={{fontSize:12, color:'gray'}}>{item.Date}</Text>
+              </View>
+              <Text style={{marginTop:-10, fontSize:17, fontWeight:'bold'}}>{item.ServiceType}</Text>
+              <Text style={{fontSize:15, marginTop:-12}}>{item.CustomerName}</Text>
+              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                <View style={{flexDirection:'row'}}>
+                  <Text>{item.Status} - </Text>
+                  <Text style={{color: item.Criticality=== "High" ? 'red' : "#FFB327"}}>{item.Criticality} </Text>
+                </View>
+                <View>
+                  <Text style={{color: item.Open=== "Open" ? '#00377D' : '#FC5622', fontWeight:'bold'}}>{item.Open}</Text>
+                </View>
+             </View>
+            </View>
+            </TouchableOpacity>
+          )}
         />
         <Filler/>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   )
 }
@@ -139,7 +160,7 @@ const styles = StyleSheet.create({
       flexDirection:'row',
       justifyContent:'space-around',
       alignItems:'center',
-      marginTop:-5
+      marginTop:-10
     },
 
     filterContainer:{
@@ -161,7 +182,7 @@ const styles = StyleSheet.create({
     },
 
     ticketContainer:{
-      flex:0.1,
+      flex:1,
       alignSelf:'center',
       marginTop:0
     },

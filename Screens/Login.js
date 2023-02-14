@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import { SafeAreaView, Image,KeyboardAvoidingView , StyleSheet, View, useWindowDimensions } from 'react-native';
+import { SafeAreaView, Image,KeyboardAvoidingView , StyleSheet, View, Dimensions, Text } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import Logo from '../assets/logo.png'
 import CustomInput from '../Components/LoginInput';
@@ -9,7 +9,6 @@ import { AuthContext } from '../Components/Context';
 
 const Login = ({navigation}) => {
 
-  const {height}= useWindowDimensions();
   const [ID, setID] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,9 +16,9 @@ const Login = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-        <LinearGradient colors={['#04223E','#111214']}
-            start={{ x: 0.1, y: 0 }}
-            end={{ x: 1.2, y: 1.1 }}
+        <LinearGradient colors={["#00549A", "#2C75B2"]}
+            start={{ x: 1, y: 1 }}
+            end={{ x: 0, y: 0 }}
             style={styles.gradient}>
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} flex={0.7}>
               <View style={styles.logoContainer}>
@@ -27,16 +26,17 @@ const Login = ({navigation}) => {
                     style={styles.Logo}
                     source={Logo}
                 />
+                <Text style={{color:'black', opacity:0.6, fontSize:35, fontWeight:'bold', marginTop:20}}>Agriculture</Text>
               </View>
               <View style={styles.inputContainer}>
                 <CustomInput placeholder={'Enter ID'} value={ID} setValue={setID} secureTextEntry={false}/>
                 <CustomInput placeholder={'Password'} value={password} setValue={setPassword} secureTextEntry={true}/>
               </View>
             </KeyboardAvoidingView>
-            <View style={styles.loginButtonContainer}>
-                <LoginButton text={'Login'}/>
+              <View style={styles.loginButtonContainer}>
+                <LoginButton text={'Login'} onPress={()=> navigation.navigate('Main App')}/>
                 <ResetPassButton text={'Reset Password?'} onPress={()=> navigation.navigate('Reset Password')}/>
-            </View>
+              </View>
         </LinearGradient>       
     </View>
 
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
 
   inputContainer:{
-    flex:0.22,
+    flex:0.2,
     justifyContent:'center',
     alignItems:'center'
   },
@@ -81,9 +81,6 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems:'center',
     height: 60,
-    shadowColor: '#000',
-    shadowOffset: { width: 4, height: 6 },
-    shadowOpacity: 0.65,
   },
 });
 

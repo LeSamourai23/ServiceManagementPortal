@@ -3,7 +3,7 @@ import React, {useState, useCallback} from 'react'
 import {LinearGradient} from 'expo-linear-gradient';
 import Modal  from 'react-native-modal';
 
-const StatsOpen = ({text, textStyle, number}) => {
+const StatsClosed = ({text, textStyle, number}) => {
 
   const [isDown, setDown] = useState(false)
   const [modalVisible, setModalVisible] = useState(false);
@@ -35,18 +35,13 @@ const StatsOpen = ({text, textStyle, number}) => {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <View>
-            <Text style={{fontWeight:'bold', fontSize:20, color:'#1E426D', textAlign:'center',}}>Ticket Pending Assignment</Text>
+            <Text style={{fontWeight:'bold', fontSize:20, color:'#D41455', textAlign:'center',}}>Closed by dealer</Text>
             <Text style={{fontSize:30, marginTop:5, alignSelf:"center"}}>1</Text>
           </View>
           <View style={{width:250, height:2, backgroundColor:'gray', opacity:0.4}}></View>
           <View>
-            <Text style={{fontWeight:'bold', fontSize:20, color: '#03A3B7', textAlign:'center',}}>Workorder pending for acceptance</Text>
+            <Text style={{fontWeight:'bold', fontSize:20, color: '#FF5722', textAlign:'center',}}>Closed Ticket</Text>
             <Text style={{fontSize:30, marginTop:5, alignSelf:"center"}}>1</Text>
-          </View>
-          <View style={{width:250, height:2, backgroundColor:'gray', opacity:0.4}}></View>
-          <View>
-            <Text style={{fontWeight:'bold', fontSize:20, color:'#03A3B7', textAlign:'center'}}>Work order in progress</Text>
-            <Text style={{fontSize:30, marginTop:5, alignSelf:"center"}}>3</Text>
           </View>
           <Pressable
             style={[styles.button, styles.buttonClose]}
@@ -73,7 +68,7 @@ const StatsOpen = ({text, textStyle, number}) => {
   )
 } 
 
-export default StatsOpen
+export default StatsClosed
 
 const styles = StyleSheet.create({
 
@@ -130,7 +125,7 @@ const styles = StyleSheet.create({
       elevation: 5,
       width:300,
       height:450,
-      justifyContent:'space-between'
+      justifyContent:'space-evenly'
     },
     button: {
       borderRadius: 10,

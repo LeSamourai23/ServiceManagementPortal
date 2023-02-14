@@ -1,18 +1,40 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, TouchableWithoutFeedback, Dimensions } from 'react-native'
+import React, {useState, useCallback} from 'react'
 import {LinearGradient} from 'expo-linear-gradient';
 
+const windowWidth = Dimensions.get('window').width;
+
+
+
 const LoginButton = ({onPress, text}) => {
+
+  const [isDown, setDown] = useState(false);
+
+  const handlePressIn = useCallback(()=> {
+    setDown(true);
+  })
+  const handlePressOut = useCallback(()=> {
+    setDown(false);
+  })
+
+  const gradColors= isDown? ['#F0B517', '#FFF17C'] : ['#FFF17C', '#F0B517'] 
+
+
   return (
+    <TouchableWithoutFeedback style={styles.button} onPress={onPress} underlayColor='#E1B100' onPressIn={handlePressIn} onPressOut={handlePressOut}>
+      <View style={styles.buttonShadow}>
         <LinearGradient
-              colors={['#F0B517', '#FFF17C']}
+              colors={gradColors} 
               style={styles.linearGradient}
-              start={{y: 0.0, x: 1.0}}
-              end={{y: 1.0, x: 0.0}}>
-          <TouchableOpacity style={styles.button} onPress={onPress} underlayColor='#E1B100'>
+              start={{y: -1, x: 0}}
+              end={{y: 2, x: 0}}>
+
             <Text style={styles.loginText}>{text}</Text>
-          </TouchableOpacity>
+
         </LinearGradient>
+        </View>
+    </TouchableWithoutFeedback>
+
   )
 }
 
@@ -23,12 +45,13 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       justifyContent: 'center',
       alignItems: 'center',
-      width: 350,
-      height: 60,
+      width: windowWidth-30,
+      height: 100,
       },
     
       loginText:{
-        color: "#111214",
+        color: "black",
+        opacity:0.8,
         fontSize: 25,
         fontWeight: 'bold',
         textAlign: 'center',
@@ -37,7 +60,19 @@ const styles = StyleSheet.create({
       },
 
       linearGradient:{
-        width: 350,
-        borderRadius: 50,
+        width: windowWidth-30,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height:60,
+        
+      },
+
+      buttonShadow:{
+        shadowColor: '#000',
+        shadowOffset: { width: 4, height: 6 },
+        shadowOpacity: 0.4,
+        shadowRadius:6
       }
+
 })

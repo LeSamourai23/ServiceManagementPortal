@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Button, Image, TouchableOpacity } from 'react-n
 import React from 'react'
 import Back from '../assets/arrow.png'
 
-const backButton = ({onPress, style}) => {
+const BackButton = ({onPress, style}) => {
   return (
     <TouchableOpacity onPress={onPress}>
         <Image source={Back} style={style}/>
@@ -10,6 +10,6 @@ const backButton = ({onPress, style}) => {
   )
 }
 
-export default backButton
+export default BackButton
 
 const styles = StyleSheet.create({})

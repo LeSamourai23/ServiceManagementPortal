@@ -4,7 +4,8 @@ import SearchIcon from '../assets/SearchIcon.png'
 
 const windowWidth = Dimensions.get('window').width;
 
-const SearchInput = ({onChangeText, value}) => {
+const SearchInput = ({value, setValue, placeholder, ref, onChangeText}) => {
+
 
   return (
     <View style={styles.UpperShadow}>
@@ -12,6 +13,7 @@ const SearchInput = ({onChangeText, value}) => {
             <View style={styles.background}>
              <Image source={SearchIcon} style={styles.icon} />
              <TextInput
+                ref={ref}
                 placeholder="Search"
                 style={styles.input}
                 value={value}
@@ -31,8 +33,8 @@ export default SearchInput
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: 'white',
-    width:windowWidth-45,
+    backgroundColor: '#eaeff2',
+    width:windowWidth-30,
     height: 60,
     alignSelf:'center',
     borderRadius: 15,
@@ -56,23 +58,22 @@ const styles = StyleSheet.create({
   },
 
   UpperShadow:{
-    marginTop:-10,    
     shadowOpacity:1,
     shadowRadius:6,
     shadowOffset: {
-      width: -2,
+      width: -6,
       height: -6,
     },
-    shadowColor:'#FFF17C'
+    shadowColor:'#ffffff'
 },
 
    BottomShadow:{
     shadowOpacity:0.2,
     shadowRadius:6,
     shadowOffset: {
-      width: 2,
+      width: 6,
       height: 6,
     },
-    shadowColor:'black'
+    shadowColor:'#989b9d'
 },
 });

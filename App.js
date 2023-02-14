@@ -5,7 +5,9 @@ import Login from './Screens/Login';
 import LoginPageNav from './Navigations/LoginPageNav'
 import { NavigationContainer } from '@react-navigation/native';
 import Homescreen from './Screens/Homescreen';
+import { AuthContext } from './Components/Context';
 import InAppNav from './Navigations/InAppNav';
+import CoreNavigator from './Navigations/CoreNav';
 
 export default function App() {
 
@@ -41,13 +43,18 @@ export default function App() {
     );
   }
 
-
   return (
+    <AuthContext.Provider value={authContext}>
     <NavigationContainer>
-    <View style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', flex: 1 }}>
-        <InAppNav/>
-    </View>
-    </NavigationContainer>
+      { userToken !== null ? (
+          <InAppNav/>
+      )
+      
+      :
+        <CoreNavigator/>
+      }
+    </NavigationContainer> 
+    </AuthContext.Provider> 
 
   );
 }

@@ -1,18 +1,15 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { View } from 'react-native';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import Homescreen from '../Screens/Homescreen';
+import Settings from '../Screens/Settings';
 import Notifications from '../Screens/Notifications';
 import Account from '../Screens/Account'
-import FullTicketDetails from '../Screens/FullTicketDetails';
-import {LinearGradient} from 'expo-linear-gradient';
 
 const Stack = createStackNavigator();
 
-function StackNavigator({navigation, route}) {
+function StackNavigatorSettings({navigation, route}) {
 
-  const tabHiddenRoutes = ["Account", "Notifications", "Full Ticket Details"];
+  const tabHiddenRoutes = ["Account", "Notifications"];
 
   React.useLayoutEffect(() => {
     if(tabHiddenRoutes.includes(getFocusedRouteNameFromRoute(route))){
@@ -35,18 +32,15 @@ function StackNavigator({navigation, route}) {
         backgroundColor:'rgba(255,255,255,0.7)',
     }});
     }
-}, [navigation, route]);
-
-  
+}, [navigation, route]); 
 
   return (
-    <Stack.Navigator screenOptions={{headerShown: false,}} initialRouteName={Homescreen}>
-      <Stack.Screen name={'Homescreen'} component={Homescreen} options={{headerShown: false}}/>
+    <Stack.Navigator screenOptions={{headerShown: false, headerStyle:{backgroundColor: '#eaeff2'}, headerShadowVisible: false,  headerBackTitle: ''}} initialRouteName={Settings}>
+      <Stack.Screen name={'Settings'} component={Settings} options={{headerShown: false}}/>
       <Stack.Screen name={'Account'} component={Account}/>
-      <Stack.Screen name={'Notifications'} component={Notifications}/>
-      <Stack.Screen name={'Full Ticket Details'} component={FullTicketDetails} options={{headerShown: false}}/> 
+      <Stack.Screen name={'Notifications'} component={Notifications}/> 
     </Stack.Navigator>
   );
 }
 
-export default StackNavigator;
+export default StackNavigatorSettings;

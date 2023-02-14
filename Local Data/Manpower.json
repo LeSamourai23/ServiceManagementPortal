@@ -1,0 +1,100 @@
+[
+    {
+        "Sr No.":1,
+        "ECode":44270,
+        "Name":"Lokesh",
+        "Employee Designation":"Assistant Salesman",
+        "Mobile Number":9983778988,
+        "Branch Name": "Surya Tractors",
+        "Created By":"cnh1\\f37794a",
+        "Created Date":"2022-06-05"
+    },
+
+    {
+        "Sr No.":2,
+        "ECode":43779,
+        "Name":"Shankar",
+        "Employee Designation":"Mechanics",
+        "Mobile Number":6375262005,
+        "Branch Name": "Surya Tractors",
+        "Created By":"cnh1\\gj683",
+        "Created Date":"2022-04-15"
+    },
+
+    {
+        "Sr No.":3,
+        "ECode":43745,
+        "Name":"Darampreet Singh",
+        "Employee Designation":"Junior Mechanics",
+        "Mobile Number":6367298166,
+        "Branch Name": "Surya Tractors",
+        "Created By":"cnh1\\gj683",
+        "Created Date":"2022-04-11"
+    },
+
+    {
+        "Sr No.":4,
+        "ECode":43730,
+        "Name":"Sunil Kumar",
+        "Employee Designation":"Mechanics",
+        "Mobile Number":90797929268,
+        "Branch Name": "Surya Tractors",
+        "Created By":"cnh1\\gj683",
+        "Created Date":"2022-04-08"
+    },
+
+    {
+        "Sr No.":5,
+        "ECode":43418,
+        "Name":"Vakeel Kumar",
+        "Employee Designation":"Mechanics    ",
+        "Mobile Number":9876543210,
+        "Branch Name": "Surya Tractors",
+        "Created By":"cnh1\\f37794a",
+        "Created Date":"2022-03-07"
+    },
+
+    {
+        "Sr No.":6,
+        "ECode":42445,
+        "Name":"Pardeep Kumar",
+        "Employee Designation":"Mechanics",
+        "Mobile Number":9876543210,
+        "Branch Name": "Surya Tractors",
+        "Created By":"cnh1\\f11216a",
+        "Created Date":"2021-12-15"
+    },
+
+    {
+        "Sr No.":7,
+        "ECode":42444,
+        "Name":"Rakesh Poonia",
+        "Employee Designation":"Mechanics",
+        "Mobile Number":9876543210,
+        "Branch Name": "Surya Tractors",
+        "Created By":"cnh1\\f11216a",
+        "Created Date":"2021-12-15"
+    },
+
+    {
+        "Sr No.":8,
+        "ECode":44270,
+        "Name":"Sumit Kumar",
+        "Employee Designation":"Parts Manager",
+        "Mobile Number":9950340260,
+        "Branch Name": "Surya Tractors",
+        "Created By":"cnh1\\f11216a",
+        "Created Date":"2022-12-14"
+    },
+
+    {
+        "Sr No.":9,
+        "ECode":42436,
+        "Name":"Kalvinder Singh",
+        "Employee Designation":"Helper",
+        "Mobile Number":9509656358,
+        "Branch Name": "Surya Tractors",
+        "Created By":"cnh1\\f11216a",
+        "Created Date":"2021-12-14"
+    }
+]

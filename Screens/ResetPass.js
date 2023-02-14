@@ -10,7 +10,7 @@ const ResetPass = ({navigation}) => {
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
-        <LinearGradient colors={['#04223E','#111214']}
+        <LinearGradient colors={["#00549A", "#2C75B2"]}
             start={{ x: 0.1, y: 0 }}
             end={{ x: 1.2, y: 1.1 }}
             style={styles.gradient}>

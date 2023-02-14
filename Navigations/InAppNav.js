@@ -3,7 +3,9 @@ import Homescreen from '../Screens/Homescreen';
 import { View, Text, StyleSheet, Image, Icon } from 'react-native'
 import ManpowerManagement from '../Screens/ManpowerManagement'
 import Settings from '../Screens/Settings'
+import FullTicketDetails from '../Screens/FullTicketDetails';
 import StackNavigator from './StackNav';
+import StackNavigatorSettings from './StackNavSettings';
 import {LinearGradient} from 'expo-linear-gradient';
 import HomescreenIcon from '../assets/Homescreen.png'
 import ManpowerIcon from '../assets/worker.png'
@@ -12,13 +14,22 @@ import HomescreenIcon_f from '../assets/Homescreen(f).png'
 import ManpowerIcon_f from '../assets/worker(f).png'
 import SettingsIcon_f from '../assets/Settings(f).png'
 
-
 const Tab = createBottomTabNavigator();
+
+/* const HeaderBackground = () => (
+  <LinearGradient
+    start={{ x: 0, y: 0 }}
+    end={{ x: 1, y: 0 }}
+    colors={['#4c669f', '#3b5998', '#192f6a']}
+    style={styles.headerBackground}
+  />
+); */
 
 function InAppNav() {
   return (
     <Tab.Navigator screenOptions={()=>({
         headerShown:false,
+        headerStyle: styles.headerStyle,
         tabBarStyle: styles.tabBarStyle,
         tabBarLabelStyle: {
         },
@@ -33,10 +44,11 @@ function InAppNav() {
                 height={83}
               />
         )
-    })}>
-      <Tab.Screen name="Home" component={StackNavigator} options={{tabBarIcon:({focused})=> (<Image source={focused? HomescreenIcon_f : HomescreenIcon} style={{width:30, height:30}}/>)}}/>
+    })
+    }>
+      <Tab.Screen name="Home" component={StackNavigator} options={{headerShown:false,tabBarIcon:({focused})=> (<Image source={focused? HomescreenIcon_f : HomescreenIcon} style={{width:30, height:30}} />)}}/>
       <Tab.Screen name="Manpower Management" component={ManpowerManagement} options={{tabBarIcon:({focused})=> (<Image source={focused? ManpowerIcon_f:ManpowerIcon} style={{width:30, height:30}}/>)}}/>
-      <Tab.Screen name="Settings" component={Settings} options={{tabBarIcon:({focused})=> (<Image source={focused? SettingsIcon_f:SettingsIcon} style={{width:30, height:30}}/>)}}/>
+      <Tab.Screen name="Settings" component={StackNavigatorSettings} options={{tabBarIcon:({focused})=> (<Image source={focused? SettingsIcon_f:SettingsIcon} style={{width:30, height:30}}/>)}}/>
     </Tab.Navigator>
   );
 }
@@ -56,4 +68,9 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         backgroundColor:'rgba(255,255,255,0.7)',
     },
+
+    headerStyle:{
+      height:100,
+      
+    }
 })
