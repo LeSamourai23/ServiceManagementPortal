@@ -17,7 +17,7 @@ const Login = ({navigation}) => {
   return (
     <View style={styles.container}>
         <LinearGradient colors={["#00549A", "#2C75B2"]}
-            start={{ x: 1, y: 1 }}
+            start={{ x: 0.5, y: 0.5 }}
             end={{ x: 0, y: 0 }}
             style={styles.gradient}>
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} flex={0.7}>

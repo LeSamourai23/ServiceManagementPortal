@@ -126,7 +126,7 @@ const FullTicketDetails = ({navigation, route}) => {
             <LinearGradient
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: -1 }}
-                colors={['#FFB584', 'white']}
+                colors={['#FF8473', '#FFF9D2']}
                 style={{flex:1, borderRadius:20}}>
                 <Text style={{margin:5, fontSize:25, alignSelf:'center'}}>Remarks</Text>
 
