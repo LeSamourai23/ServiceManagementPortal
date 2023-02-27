@@ -5,13 +5,14 @@ import edit from '../assets/edit-white.png'
 import SignOutIcon from '../assets/SignOut.png'
 import {LinearGradient} from 'expo-linear-gradient';
 import BackButton from '../Components/backButton'
+import { COLORS } from '../Constants/constants'
 
 const Profile = ({navigation}) => {
   return (
     <View style={styles.container}>
-               <LinearGradient start={{ x: 0, y: 0 }}
+          <LinearGradient start={{ x: 0, y: 0 }}
             end={{ x: 1, y: -1 }}
-            colors={['#F0B517', '#FFF17C']}
+            colors={[COLORS.SECONDARY_LG1, COLORS.SECONDARY_LG2]}
             height={330}
             style={styles.headingContainer}>
             <BackButton style={{width:30, height:30, marginTop:38, marginLeft:10}} onPress={()=> navigation.navigate('Homescreen')}/>
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
 
   container:{
     flex:1,
-    backgroundColor:'#eaeff2',
+    backgroundColor:COLORS.PRIMARY_BG
   },
 
   ProfilePic:{

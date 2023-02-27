@@ -11,6 +11,8 @@ import Stats from '../Components/Stats'
 import StatsClosed from '../Components/Stats2'
 import TicketSearchTabs from '../Components/TicketSearchTabs'
 import Filler from '../Components/Filler';
+import { COLORS } from '../Constants/constants';
+
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -61,10 +63,11 @@ const Homescreen = ({navigation}) => {
       />
       <LinearGradient start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: -1 }}
-                colors={['#F0B517', '#FFF17C']}
+                colors={[COLORS.SECONDARY_LG1, COLORS.SECONDARY_LG2]}
                 height={81}
-                borderRadius={29}
-                style={styles.SearchBarContainer}>
+                style={styles.SearchBarContainer}
+                accessibilityRole="none">
+                
         <View style={styles.logoContainer}>
           <HomescreenButtons image={UserIcon} onPress={()=> navigation.navigate('Account')}/>
           <Image source={Logo} style={{height:100, width:220}}/>
@@ -143,17 +146,18 @@ const styles = StyleSheet.create({
     
     mainContainer:{
         flex: 1,
-        backgroundColor: '#eaeff2',
+        //backgroundColor: '#eaeff2',
+        backgroundColor: COLORS.PRIMARY_BG,
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
     },
 
     SearchBarContainer:{
       flex:0.4,
-      backgroundColor:"#00549A",
       opacity:1,
       width:windowWidth-20,
       alignSelf:'center',
       borderRadius:20,
+      overflow: 'hidden'
     },
 
     logoContainer:{

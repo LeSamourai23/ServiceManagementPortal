@@ -7,15 +7,16 @@ import BugIcon from '../assets/bug.png'
 import Feedback from '../assets/feedback.png'
 import Logout from '../assets/logout_b.png'
 import NavArrow from '../assets/nav_arrow.png'
+import { COLORS } from '../Constants/constants';
 
 const windowWidth = Dimensions.get('window').width;
 
 const Settings = ({navigation}) => {
   return (
-    <View style={{backgroundColor:'#eaeff2', flex:1}}>
+    <View style={{backgroundColor:COLORS.PRIMARY_BG, flex:1}}>
          <LinearGradient start={{ x: 0, y: 0 }}
             end={{ x: 1, y: -1 }}
-            colors={['#F0B517', '#FFF17C']}
+            colors={[COLORS.SECONDARY_LG1, COLORS.SECONDARY_LG2]}
             height={110}
             style={styles.headingContainer}>
             

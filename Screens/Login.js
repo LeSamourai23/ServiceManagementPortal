@@ -6,6 +6,7 @@ import CustomInput from '../Components/LoginInput';
 import LoginButton from '../Components/LoginButton';
 import ResetPassButton from '../Components/ResetPassButton';
 import { AuthContext } from '../Components/Context';
+import { COLORS } from '../Constants/constants';
 
 const Login = ({navigation}) => {
 
@@ -16,7 +17,7 @@ const Login = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-        <LinearGradient colors={["#00549A", "#2C75B2"]}
+        <LinearGradient colors={[COLORS.LOGIN_LG1, COLORS.LOGIN_LG2]}
             start={{ x: 0.5, y: 0.5 }}
             end={{ x: 0, y: 0 }}
             style={styles.gradient}>
@@ -48,7 +49,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:'#05345F'
   },
 
   gradient:{

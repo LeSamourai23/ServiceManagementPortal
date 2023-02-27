@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: { width: 4, height: 6 },
         shadowOpacity: 0.2,
+        shadowRadius:5
     },
 
     dropdown:{
@@ -57,7 +58,12 @@ const styles = StyleSheet.create({
         width:350,
         height:200,
         alignSelf:'center',
-        marginTop:0,
-        marginBottom:20
+        marginTop:-5,
+        marginBottom:20,
+        borderRadius:20,
+        shadowColor: '#000',
+        shadowOffset: { width: 4, height: 6 },
+        shadowOpacity: 0.2,
+        shadowRadius:5
     }
 })

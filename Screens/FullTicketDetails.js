@@ -3,6 +3,7 @@ import React from 'react'
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import BackButton from '../Components/backButton'
 import StatusComponent from '../Components/TicketStatusComponent'
+import { COLORS } from '../Constants/constants'
 
 const FullTicketDetails = ({navigation, route}) => {
 
@@ -15,7 +16,7 @@ const FullTicketDetails = ({navigation, route}) => {
             <LinearGradient
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: -1 }}
-                colors={['#92B2FD', 'white']}
+                colors={[COLORS.TICKETDETAILS_LG1, COLORS.TICKETDETAILS_LG2]}
                 style={{flex:1, borderRadius:20}}>
                 <Text style={{margin:5, fontSize:25, alignSelf:'center'}}>Ticket Details</Text>
 
@@ -49,7 +50,7 @@ const FullTicketDetails = ({navigation, route}) => {
             <LinearGradient
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: -1 }}
-                colors={['#AD7FFB', 'white']}
+                colors={[COLORS.CUSTDETAILS_LG1, COLORS.CUSTDETAILS_LG2]}
                 style={{flex:1, borderRadius:20}}>
                 <Text style={{margin:5, fontSize:25, alignSelf:'center'}}>Customer Details</Text>
                 <View style={{margin:10,}}>
@@ -86,7 +87,7 @@ const FullTicketDetails = ({navigation, route}) => {
             <LinearGradient
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: -1 }}
-                colors={['#F594B7', 'white']}
+                colors={[COLORS.MACHINEDETAILS_LG1, COLORS.MACHINEDETAILS_LG2]}
                 style={{flex:1, borderRadius:20}}>
                 <Text style={{margin:5, fontSize:25, alignSelf:'center'}}>Machine Details</Text>
                 <View style={{margin:10,}}>
@@ -126,10 +127,9 @@ const FullTicketDetails = ({navigation, route}) => {
             <LinearGradient
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: -1 }}
-                colors={['#FF8473', '#FFF9D2']}
+                colors={[COLORS.REMARKS_LG1, COLORS.REMARKS_LG2]}
                 style={{flex:1, borderRadius:20}}>
                 <Text style={{margin:5, fontSize:25, alignSelf:'center'}}>Remarks</Text>
-
                 <View style={{margin:10,}}>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                         <Text style={styles.detailsText}>Remark: </Text>

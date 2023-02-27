@@ -13,17 +13,9 @@ import SettingsIcon from '../assets/Settings.png'
 import HomescreenIcon_f from '../assets/Homescreen(f).png'
 import ManpowerIcon_f from '../assets/worker(f).png'
 import SettingsIcon_f from '../assets/Settings(f).png'
+import { COLORS } from '../Constants/constants';
 
 const Tab = createBottomTabNavigator();
-
-/* const HeaderBackground = () => (
-  <LinearGradient
-    start={{ x: 0, y: 0 }}
-    end={{ x: 1, y: 0 }}
-    colors={['#4c669f', '#3b5998', '#192f6a']}
-    style={styles.headerBackground}
-  />
-); */
 
 function InAppNav() {
   return (
@@ -40,7 +32,7 @@ function InAppNav() {
               <LinearGradient
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: -1 }}
-                colors={["#00549A", "#2C75B2"]}
+                colors={[COLORS.LOGIN_LG1, COLORS.LOGIN_LG2]}
                 height={83}
               />
         )

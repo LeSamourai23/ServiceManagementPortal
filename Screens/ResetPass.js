@@ -5,12 +5,13 @@ import Logo from '../assets/logo.png'
 import CustomInput from '../Components/LoginInput';
 import LoginButton from '../Components/LoginButton';
 import ResetPassButton from '../Components/ResetPassButton';
+import { COLORS } from '../Constants/constants';
 
 const ResetPass = ({navigation}) => {
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
-        <LinearGradient colors={["#00549A", "#2C75B2"]}
+        <LinearGradient colors={[COLORS.LOGIN_LG1, COLORS.LOGIN_LG2]}
             start={{ x: 0.1, y: 0 }}
             end={{ x: 1.2, y: 1.1 }}
             style={styles.gradient}>

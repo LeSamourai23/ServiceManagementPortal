@@ -1,10 +1,10 @@
 import { StyleSheet, Text, Dimensions,View, FlatList, TouchableOpacity, ScrollView, Image } from 'react-native'
 import React, {useEffect, useState} from 'react'
-import Manpower from '../Local Data/Manpower.json'
 import { LinearGradient } from 'expo-linear-gradient'
 import SearchInput from '../Components/SearchBar2'
 import Filler from '../Components/Filler'
 import ManpowerIcon from '../assets/Manpower.png'
+import { COLORS } from '../Constants/constants'
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -53,7 +53,7 @@ const ManpowerManagement = () => {
         <View>
           <LinearGradient start={{ x: 0, y: 0 }}
               end={{ x: 1, y: -1 }}
-              colors={['#F0B517', '#FFF17C']}
+              colors={[COLORS.SECONDARY_LG1, COLORS.SECONDARY_LG2]}
               height={110}
               style={styles.headingContainer}>
             
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
 
   mainContainer:{
     flex:1,
-    backgroundColor:'#eaeff2'
+    backgroundColor:COLORS.PRIMARY_BG
   },
 
   item: {

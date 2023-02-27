@@ -33,8 +33,8 @@ export default SearchInput
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: '#eaeff2',
-    width:windowWidth-30,
+    backgroundColor: 'white',
+    width:windowWidth-20,
     height: 60,
     alignSelf:'center',
     borderRadius: 15,
