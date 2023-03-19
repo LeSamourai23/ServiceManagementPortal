@@ -4,14 +4,19 @@ import User from '../assets/user.png'
 import Notification from '../assets/bell.png'
 import {LinearGradient} from 'expo-linear-gradient';
 import BugIcon from '../assets/bug.png'
+import AuthContextProvider, { AuthContext } from '../store/auth-context';
 import Feedback from '../assets/feedback.png'
 import Logout from '../assets/logout_b.png'
 import NavArrow from '../assets/nav_arrow.png'
 import { COLORS } from '../Constants/constants';
+import { useContext } from 'react';
 
 const windowWidth = Dimensions.get('window').width;
 
 const Settings = ({navigation}) => {
+
+  const authCtx = useContext(AuthContext)
+
   return (
     <View style={{backgroundColor:COLORS.PRIMARY_BG, flex:1}}>
          <LinearGradient start={{ x: 0, y: 0 }}
@@ -60,7 +65,7 @@ const Settings = ({navigation}) => {
               <Image source={NavArrow} style={{width:20, height:20, marginTop:20, marginRight:-30}}/>
             </View>
           </Pressable>
-          <Pressable style={styles.settings} onPress={()=> navigation.navigate('Login')}>
+          <Pressable style={styles.settings} onPress={authCtx.logout}>
             <View style={{flex:0.9, flexDirection:'row'}}>
               <Image source={Logout} style={{width:32, height:32, margin:10, marginTop:13, marginLeft:13}}/>
               <Text style={{fontSize:17, alignSelf:'center'}}>Log Out</Text>

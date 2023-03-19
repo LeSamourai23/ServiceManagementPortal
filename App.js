@@ -1,63 +1,96 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import { StyleSheet, Text, View, ActivityIndicator, TouchableOpacity } from 'react-native';
+import React, {useEffect, useState, useContext} from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import Login from './Screens/Login';
-import LoginPageNav from './Navigations/LoginPageNav'
 import { NavigationContainer } from '@react-navigation/native';
-import Homescreen from './Screens/Homescreen';
-import { AuthContext } from './Components/Context';
 import InAppNav from './Navigations/InAppNav';
-import CoreNavigator from './Navigations/CoreNav';
+import AuthForm from './Auth/AuthForm';
+import AuthContextProvider, { AuthContext } from './store/auth-context';
+import ResetPass from './Screens/ResetPass';
+import AppLoading from 'expo-app-loading';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import Homescreen from './Screens/Homescreen';
+import IconButton from './Components/IconButton';
+
+const Stack = createStackNavigator();
+
+function AuthStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Signup" component={ResetPass} />
+    </Stack.Navigator>
+  );
+}
+
+function Navigation() {
+
+  const authCtx = useContext(AuthContext);
+
+  return (
+      <NavigationContainer>
+        {!authCtx.isAuthenticated && <AuthStack />}
+        {authCtx.isAuthenticated && <AuthenticatedStack/>}
+      </NavigationContainer>
+  );
+}
+
+function AuthenticatedStack() {
+
+  const authCtx = useContext(AuthContext)
+
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Welcome" component={InAppNav} options={{
+         headerShown:false}}/>
+    </Stack.Navigator>
+  );
+}
+
+function Root () {
+
+  const [isTryingLogin, setIsTryingLogin] = useState(true);
+
+  const authCtx = useContext(AuthContext)
+
+  useEffect(() => {
+    async function fetchToken() {
+        const storedToken = await AsyncStorage.getItem('token')
+
+        if (storedToken) {
+            authCtx.authenticate(storedToken)
+        }
+
+        setIsTryingLogin(false)
+    }
+
+    fetchToken();
+  }, [])
+
+  if (isTryingLogin) {
+    return <AppLoading/>
+  }
+
+  return <Navigation/>
+}
 
 export default function App() {
 
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [userToken, setUserToken] = React.useState(null);
-
-  const authContext = React.useMemo(() => ({
-    Login: () => {
-      setUserToken('abc')
-      setIsLoading(false)
-    },
-    LogOut: () => {
-      setUserToken(null)
-      setIsLoading(false)
-    },
-    ResetPass: () => {
-      setUserToken('xyz')
-      setIsLoading(false)
-    }
-  }), []);
-
-  useEffect(()=> {
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 1000);
-  }, [])
-
-  if( isLoading ) {
-    return(
-      <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
-        <ActivityIndicator size="large"/>
-      </View>
-    );
-  }
-
   return (
-    <AuthContext.Provider value={authContext}>
-    <NavigationContainer>
-      { userToken !== null ? (
-          <InAppNav/>
-      )
-      
-      :
-        <CoreNavigator/>
-      }
-    </NavigationContainer> 
-    </AuthContext.Provider> 
-
+    <>
+      <StatusBar style="light" />
+      <AuthContextProvider>
+        <Root/>
+      </AuthContextProvider>
+    </>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

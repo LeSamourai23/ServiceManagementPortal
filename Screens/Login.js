@@ -1,87 +1,33 @@
-import React, {useState, useContext} from 'react';
-import { SafeAreaView, Image,KeyboardAvoidingView , StyleSheet, View, Dimensions, Text } from 'react-native';
-import {LinearGradient} from 'expo-linear-gradient';
-import Logo from '../assets/logo.png'
-import CustomInput from '../Components/LoginInput';
-import LoginButton from '../Components/LoginButton';
-import ResetPassButton from '../Components/ResetPassButton';
-import { AuthContext } from '../Components/Context';
-import { COLORS } from '../Constants/constants';
+import AuthContent from '../Auth/AuthContent';
+import { useContext, useState } from 'react'
+import LoadingOverlay from '../Components/LoadingOverlay';
+import { login } from '../utilities/auth'
+import { Alert } from 'react-native';
+import { AuthContext } from '../store/auth-context';
 
-const Login = ({navigation}) => {
+function Login() {
 
-  const [ID, setID] = useState('');
-  const [password, setPassword] = useState('');
+  const [isAuthenticating, setIsAuthenticating] = useState(false)
 
-  //const { Login } = React.useContext(AuthContext)
+  const authCtx= useContext(AuthContext)
 
-  return (
-    <View style={styles.container}>
-        <LinearGradient colors={[COLORS.LOGIN_LG1, COLORS.LOGIN_LG2]}
-            start={{ x: 0.5, y: 0.5 }}
-            end={{ x: 0, y: 0 }}
-            style={styles.gradient}>
-            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} flex={0.7}>
-              <View style={styles.logoContainer}>
-                <Image
-                    style={styles.Logo}
-                    source={Logo}
-                />
-                <Text style={{color:'black', opacity:0.6, fontSize:35, fontWeight:'bold', marginTop:20}}>Agriculture</Text>
-              </View>
-              <View style={styles.inputContainer}>
-                <CustomInput placeholder={'Enter ID'} value={ID} setValue={setID} secureTextEntry={false}/>
-                <CustomInput placeholder={'Password'} value={password} setValue={setPassword} secureTextEntry={true}/>
-              </View>
-            </KeyboardAvoidingView>
-              <View style={styles.loginButtonContainer}>
-                <LoginButton text={'Login'} onPress={()=> navigation.navigate('Main App')}/>
-                <ResetPassButton text={'Reset Password?'} onPress={()=> navigation.navigate('Reset Password')}/>
-              </View>
-        </LinearGradient>       
-    </View>
+  async function loginHandler({email, password}) {
+    setIsAuthenticating(true);
+    try{
+      const token = await login(email, password)
+      authCtx.authenticate(token);
+    } catch(error) {
+      Alert.alert('Authentication Error. Please enter valid credentials or try later.')
+      setIsAuthenticating(false);
+    }
 
-  );
-};
+  }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+   if (isAuthenticating) {
+    return <LoadingOverlay message={"Logging In..."}/>
+  }
 
-  gradient:{
-    flex:1
-  },
-
-  Logo: {
-    width: 170,
-    height: 170,
-    aspectRatio: 860/304,
-    shadowColor: '#000',
-    shadowOffset: { width: 6, height: 6 },
-    shadowOpacity: 0.5,
-    shadowRadius: 6
-  },
-  logoContainer: {
-    flex: 0.78,
-    alignItems:'center',
-    justifyContent:'center',
-  },
-
-  inputContainer:{
-    flex:0.2,
-    justifyContent:'center',
-    alignItems:'center'
-  },
-
-  loginButtonContainer:{
-    flex:0.3,
-    justifyContent:'center',
-    alignItems:'center',
-    height: 60,
-  },
-});
+  return <AuthContent isLogin onAuthenticate={loginHandler}/>;
+}
 
 export default Login;

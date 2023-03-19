@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Pressable } from 'react-native'
 import React from 'react'
 
 const ResetPassButton = ({onPress, text}) => {
   return (
     <View>
-        <TouchableOpacity style={styles.resetPass} onPress={onPress} secureTextEntry>
+        <Pressable style={styles.resetPass} onPress={onPress}>
             <Text style={styles.resetPassText}>{text}</Text>
-        </TouchableOpacity>
+        </Pressable>
     </View>
   )
 }

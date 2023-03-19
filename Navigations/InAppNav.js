@@ -12,6 +12,7 @@ import ManpowerIcon from '../assets/worker.png'
 import SettingsIcon from '../assets/Settings.png'
 import HomescreenIcon_f from '../assets/Homescreen(f).png'
 import ManpowerIcon_f from '../assets/worker(f).png'
+import AuthContextProvider, { AuthContext } from '../store/auth-context';
 import SettingsIcon_f from '../assets/Settings(f).png'
 import { COLORS } from '../Constants/constants';
 
