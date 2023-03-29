@@ -29,7 +29,7 @@ const Settings = ({navigation}) => {
 
         </LinearGradient> 
         <View style={{width:350, flex:0.8, alignSelf:'center', margin:10, marginBottom:40, borderRadius:20}}>
-          <Pressable style={styles.settings} onPress={()=> navigation.navigate('Account')}>
+          <Pressable style={styles.settings} onPress={()=> navigation.navigate('Account', { prevScreen: 'Settings' }) }>
             <View style={{flex:0.9, flexDirection:'row'}}>
               <Image source={User} style={{width:40, height:40, margin:10}}/>
               <Text style={{fontSize:17, alignSelf:'center'}}>Account</Text>
@@ -38,7 +38,7 @@ const Settings = ({navigation}) => {
               <Image source={NavArrow} style={{width:20, height:20, marginTop:20, marginRight:-30}}/>
             </View>
           </Pressable>
-          <Pressable style={styles.settings} onPress={()=> navigation.navigate('Notifications')}>
+          <Pressable style={styles.settings} onPress={()=> navigation.navigate('Notifications', { prevScreen: 'Settings' })}>
             <View style={{flex:0.9, flexDirection:'row'}}>
               <Image source={Notification} style={{width:35, height:35, margin:10, marginLeft:12}}/>
               <Text style={{fontSize:17, alignSelf:'center'}}>Notifications</Text>

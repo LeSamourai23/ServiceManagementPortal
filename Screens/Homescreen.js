@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, SafeAreaView, Platform, StatusBar, Dimensions, Image, TouchableOpacity, ScrollView, FlatList, ActivityIndicator } from 'react-native'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import Logo from '../assets/logo.png'
 import HomescreenButtons from '../Components/HomescreenButtons'
 import UserIcon from '../assets/user.png'
@@ -9,28 +9,31 @@ import SearchInput from '../Components/SearchBar'
 import filterIcon from '../assets/filter.png'
 import Stats from '../Components/Stats'
 import StatsClosed from '../Components/Stats2'
-import TicketSearchTabs from '../Components/TicketSearchTabs'
+import axios from 'axios'
 import Filler from '../Components/Filler';
 import { COLORS } from '../Constants/constants';
 
-
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 const Homescreen = ({navigation}) => {
 
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const searchRef = useRef();
   const [oldData, setOldData] = useState('');
+  const listRef = useRef();;
+
 
   useEffect(() => {
-    fetch('https://api.jsonserve.com/WgyZMo')
-    .then(res => res.json())
-    .then(response => {
-      console.log(response);
-      setData(response);
-      setOldData(response);
-    })
+    axios.get('https://api.jsonserve.com/bgkGxZ')
+      .then(response => {
+        console.log(response.data);
+        setData(response.data);
+        setOldData(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }, []);
 
   if (!data) {
@@ -46,12 +49,39 @@ const Homescreen = ({navigation}) => {
     if(text==''){
       setData(oldData)
     }
-    else{
+    
+    else {
       let tempList=data.filter(item=>{
-        return item.CustomerName.toLowerCase().indexOf(text.toLowerCase()) > -1;
+        return (item.CustomerName.toLowerCase().indexOf(text.toLowerCase()) > -1 || 
+                item.TicketNumber.toString().indexOf(text.toLowerCase()) > -1 ||
+                item.ServiceType.toLowerCase().indexOf(text.toLowerCase()) > -1)
       })  
       setData(tempList)
     }
+  }
+
+  const criticality = () => {
+    let tempList = [...data].sort((a, b) => {
+      const sortOrder = ['High', 'Medium', 'Low'];
+      const aIndex = sortOrder.indexOf(a.Criticality);
+      const bIndex = sortOrder.indexOf(b.Criticality);
+      return aIndex - bIndex;
+    })
+
+    listRef.current.scrollToIndex({animated: true, index: 0});
+    setData(tempList);  
+  }
+
+  const mostRecent = () => {
+    let tempList = [...data].sort((a, b) => new Date(a.Date.slice(0,2)) - new Date(b.Date.slice(0,2)));
+    listRef.current.scrollToIndex({animated: true, index: 0});
+    setData(tempList);
+  }
+
+  const customerName = () => {
+    let tempList = [...data].sort((a, b) => a.CustomerName.toLowerCase().localeCompare(b.CustomerName.toLowerCase()));
+    listRef.current.scrollToIndex({animated: true, index: 0});
+    setData(tempList);
   }
 
   return (
@@ -69,12 +99,13 @@ const Homescreen = ({navigation}) => {
                 accessibilityRole="none">
                 
         <View style={styles.logoContainer}>
-          <HomescreenButtons image={UserIcon} onPress={()=> navigation.navigate('Account')}/>
+          <HomescreenButtons image={UserIcon} onPress={()=> navigation.navigate('Account', { prevScreen: 'Homescreen' })}/>
           <Image source={Logo} style={{height:100, width:220}}/>
-          <HomescreenButtons image={NotificationIcon} onPress={()=> navigation.navigate('Notifications')}/>
+          <HomescreenButtons image={NotificationIcon} onPress={()=> navigation.navigate('Notifications', { prevScreen: 'Homescreen' })}/>
         </View>
         <View>
-          <SearchInput             
+          <SearchInput
+            ref={searchRef}             
             value={searchTerm} 
             onChangeText={txt => { 
               onSearch(txt);
@@ -83,22 +114,17 @@ const Homescreen = ({navigation}) => {
         </View>
       </LinearGradient>
       <ScrollView style={styles.filterContainer} horizontal showsHorizontalScrollIndicator={false}>
-        <TouchableOpacity style={{backgroundColor:'#F7F5F8', height:40, width:140, flexDirection:'row', alignItems:'center', justifyContent:'center', borderRadius:15, marginRight:5}}>
+{/*         <TouchableOpacity style={{backgroundColor:'#F7F5F8', height:40, width:140, flexDirection:'row', alignItems:'center', justifyContent:'center', borderRadius:15, marginRight:5}}>
           <Image source={filterIcon} style={{width:20, height:20, marginRight:5}}/>
           <Text>All Categories</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={{backgroundColor:'#F7F5F8', height:40, width:120, flexDirection:'row', alignItems:'center', justifyContent:'center', borderRadius:15, marginRight:5}}>
+        </TouchableOpacity> */}
+        <TouchableOpacity onPress={mostRecent} style={{backgroundColor:'white', height:40, width:120, flexDirection:'row', alignItems:'center', justifyContent:'center', borderRadius:15, marginRight:5}}>
           <Text>Most Recent</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{backgroundColor:'#F7F5F8', height:40, width:100, flexDirection:'row', alignItems:'center', justifyContent:'center', borderRadius:15, marginRight:5}}>
+        <TouchableOpacity onPress={criticality} style={{backgroundColor:'white', height:40, width:100, flexDirection:'row', alignItems:'center', justifyContent:'center', borderRadius:15, marginRight:5}}>
           <Text>Criticality</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=> {
-            let tempList = data.sort((a,b)=> a.CustomerName>b.CustomerName ? 1 : -1);
-            setData(tempList);
-          }}
-          style={{backgroundColor:'#F7F5F8', height:40, width:130, flexDirection:'row', alignItems:'center', justifyContent:'center', borderRadius:15, marginRight:5}
-          }>
+        <TouchableOpacity onPress={customerName} style={{backgroundColor:'white', height:40, width:130, flexDirection:'row', alignItems:'center', justifyContent:'center', borderRadius:15, marginRight:5}}>
           <Text>Customer Name</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -111,6 +137,7 @@ const Homescreen = ({navigation}) => {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           data={data}
+          ref={listRef}
           keyExtractor={(item) => item.id}
           renderItem={({item})=> (
             <TouchableOpacity onPress={()=> navigation.navigate('Full Ticket Details', {item})}>
@@ -120,11 +147,11 @@ const Homescreen = ({navigation}) => {
                 <Text style={{fontSize:12, color:'gray'}}>{item.Date}</Text>
               </View>
               <Text style={{marginTop:-10, fontSize:17, fontWeight:'bold'}}>{item.ServiceType}</Text>
-              <Text style={{fontSize:15, marginTop:-12}}>{item.CustomerName}</Text>
+              <Text style={{fontSize:15, marginTop:-12, fontWeight:500}}>{item.CustomerName}</Text>
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                 <View style={{flexDirection:'row'}}>
                   <Text>{item.Status} - </Text>
-                  <Text style={{color: item.Criticality=== "High" ? 'red' : "#FFB327"}}>{item.Criticality} </Text>
+                  <Text style={{ color: item.Criticality === "High" ? 'red' : (item.Criticality === "Low" ? 'green' : '#FFB327') }}>{item.Criticality} </Text>
                 </View>
                 <View>
                   <Text style={{color: item.Open=== "Open" ? '#00377D' : '#FC5622', fontWeight:'bold'}}>{item.Open}</Text>

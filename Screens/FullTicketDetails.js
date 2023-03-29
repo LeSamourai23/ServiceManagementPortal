@@ -253,8 +253,7 @@ const styles = StyleSheet.create({
     },
 
     detailsText:{
-        fontSize:16, 
-        fontWeight:'bold', 
+        fontSize:16,  
         marginBottom:7,
         opacity:0.8,
         color:'white'

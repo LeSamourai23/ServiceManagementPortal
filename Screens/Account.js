@@ -5,9 +5,23 @@ import edit from '../assets/edit-white.png'
 import SignOutIcon from '../assets/SignOut.png'
 import {LinearGradient} from 'expo-linear-gradient';
 import BackButton from '../Components/backButton'
+import { useRoute } from '@react-navigation/native';
 import { COLORS } from '../Constants/constants'
 
 const Profile = ({navigation}) => {
+
+  const route = useRoute();
+  const prevScreen = route.params?.prevScreen;
+
+  const onPress= () =>{
+    if(prevScreen==='Homescreen'){
+      navigation.navigate('Homescreen')
+    }
+    else if(prevScreen==='Settings'){
+      navigation.navigate('Settings')
+    }
+  }
+
   return (
     <View style={styles.container}>
           <LinearGradient start={{ x: 0, y: 0 }}
@@ -15,7 +29,7 @@ const Profile = ({navigation}) => {
             colors={[COLORS.SECONDARY_LG1, COLORS.SECONDARY_LG2]}
             height={330}
             style={styles.headingContainer}>
-            <BackButton style={{width:30, height:30, marginTop:38, marginLeft:10}} onPress={()=> navigation.navigate('Homescreen')}/>
+            <BackButton style={{width:30, height:30, marginTop:38, marginLeft:10}} onPress={onPress}/>
             <Text style={{fontWeight:'bold', marginTop:5, marginLeft:12, fontSize:30}}>Account </Text>
 
         </LinearGradient> 

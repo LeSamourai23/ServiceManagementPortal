@@ -5,6 +5,7 @@ import SearchInput from '../Components/SearchBar2'
 import Filler from '../Components/Filler'
 import ManpowerIcon from '../assets/Manpower.png'
 import { COLORS } from '../Constants/constants'
+import axios from 'axios'
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -15,14 +16,15 @@ const ManpowerManagement = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    fetch('https://api.jsonserve.com/7e6LBT')
-      .then(res => res.json())
+    axios.get('https://api.jsonserve.com/pw_y8A')
       .then(response => {
-        console.log(response);
-        setData(response);
-        setOldData(response);
+        console.log(response.data);
+        setData(response.data);
+        setOldData(response.data);
       })
-
+      .catch(error => {
+        console.log(error);
+      });
   }, []);
 
   if (!data) {
@@ -39,9 +41,11 @@ const ManpowerManagement = () => {
     }
     else{
       let tempList=data.filter(item=>{
-        return item.Name.toLowerCase().indexOf(text.toLowerCase()) > -1;
+        return (item.Name.toLowerCase().indexOf(text.toLowerCase()) > -1 ||
+                item["Mobile Number"].toString().indexOf(text.toLowerCase()) > -1 || 
+                item.ECode.toString().indexOf(text.toLowerCase()) > -1 ||
+                item["Employee Designation"].toLowerCase().indexOf(text.toLowerCase()) > -1 )
       })
-  
       setData(tempList)
     }
 

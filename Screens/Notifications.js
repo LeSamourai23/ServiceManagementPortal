@@ -1,18 +1,24 @@
 import { StyleSheet, Image, Text, ScrollView, View, Dimensions, Pressable } from 'react-native'
 import React from 'react'
-import User from '../assets/user.png'
-import Notification from '../assets/bell.png'
 import {LinearGradient} from 'expo-linear-gradient';
-import BugIcon from '../assets/bug.png'
-import Feedback from '../assets/feedback.png'
-import Logout from '../assets/logout_b.png'
-import NavArrow from '../assets/nav_arrow.png'
 import BackButton from '../Components/backButton';
 import { COLORS } from '../Constants/constants';
-
-const windowWidth = Dimensions.get('window').width;
+import { useRoute } from '@react-navigation/native';
 
 const Notifications = ({navigation}) => {
+
+  const route = useRoute();
+  const prevScreen = route.params?.prevScreen;
+
+  const onPress= () =>{
+    if(prevScreen==='Homescreen'){
+      navigation.navigate('Homescreen')
+    }
+    else if(prevScreen==='Settings'){
+      navigation.navigate('Settings')
+    }
+  }
+
   return (
     <View style={{backgroundColor:COLORS.PRIMARY_BG, flex:1}}>
          <LinearGradient start={{ x: 0, y: 0 }}
@@ -20,7 +26,7 @@ const Notifications = ({navigation}) => {
             colors={[COLORS.SECONDARY_LG1, COLORS.SECONDARY_LG2]}
             height={330}
             style={styles.headingContainer}>
-            <BackButton style={{width:30, height:30, marginTop:38, marginLeft:10}} onPress={()=> navigation.navigate('Homescreen')}/>
+            <BackButton style={{width:30, height:30, marginTop:38, marginLeft:10}} onPress={onPress}/>
             <Text style={{fontWeight:'bold', marginTop:5, marginLeft:12, fontSize:30}}>Notifications</Text>
 
         </LinearGradient> 

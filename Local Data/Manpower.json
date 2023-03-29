@@ -1,100 +1,100 @@
 [
     {
         "Sr No.":1,
-        "ECode":44270,
-        "Name":"Lokesh",
+        "ECode":55371,
+        "Name":"Adam Smith",
         "Employee Designation":"Assistant Salesman",
-        "Mobile Number":9983778988,
+        "Mobile Number":9876767654,
         "Branch Name": "Surya Tractors",
-        "Created By":"cnh1\\f37794a",
+        "Created By":"cnh1\\e3719ia",
         "Created Date":"2022-06-05"
     },
 
     {
         "Sr No.":2,
-        "ECode":43779,
-        "Name":"Shankar",
-        "Employee Designation":"Mechanics",
-        "Mobile Number":6375262005,
+        "ECode":54221,
+        "Name":"Sam Wood",
+        "Employee Designation":"Mechanic",
+        "Mobile Number":6574354351,
         "Branch Name": "Surya Tractors",
-        "Created By":"cnh1\\gj683",
+        "Created By":"cnh1\\ab765",
         "Created Date":"2022-04-15"
     },
 
     {
         "Sr No.":3,
-        "ECode":43745,
-        "Name":"Darampreet Singh",
-        "Employee Designation":"Junior Mechanics",
-        "Mobile Number":6367298166,
+        "ECode":12344,
+        "Name":"David Neill",
+        "Employee Designation":"Junior Mechanic",
+        "Mobile Number":9994458910,
         "Branch Name": "Surya Tractors",
-        "Created By":"cnh1\\gj683",
+        "Created By":"cnh1\\ab765",
         "Created Date":"2022-04-11"
     },
 
     {
         "Sr No.":4,
-        "ECode":43730,
-        "Name":"Sunil Kumar",
-        "Employee Designation":"Mechanics",
-        "Mobile Number":90797929268,
+        "ECode":76765,
+        "Name":"Mark Conway",
+        "Employee Designation":"Mechanic",
+        "Mobile Number":8989752121,
         "Branch Name": "Surya Tractors",
-        "Created By":"cnh1\\gj683",
+        "Created By":"cnh1\\ab765",
         "Created Date":"2022-04-08"
     },
 
     {
         "Sr No.":5,
-        "ECode":43418,
-        "Name":"Vakeel Kumar",
-        "Employee Designation":"Mechanics    ",
-        "Mobile Number":9876543210,
+        "ECode":65499,
+        "Name":"William Drake",
+        "Employee Designation":"Mechanic",
+        "Mobile Number":7699900111,
         "Branch Name": "Surya Tractors",
-        "Created By":"cnh1\\f37794a",
+        "Created By":"cnh1\\e3719ia",
         "Created Date":"2022-03-07"
     },
 
     {
         "Sr No.":6,
-        "ECode":42445,
-        "Name":"Pardeep Kumar",
-        "Employee Designation":"Mechanics",
+        "ECode":97777,
+        "Name":"Chris Kane",
+        "Employee Designation":"Mechanic",
         "Mobile Number":9876543210,
         "Branch Name": "Surya Tractors",
-        "Created By":"cnh1\\f11216a",
+        "Created By":"cnh1\\w12378a",
         "Created Date":"2021-12-15"
     },
 
     {
         "Sr No.":7,
-        "ECode":42444,
-        "Name":"Rakesh Poonia",
-        "Employee Designation":"Mechanics",
-        "Mobile Number":9876543210,
+        "ECode":53555,
+        "Name":"Alvin Walt",
+        "Employee Designation":"Mechanic",
+        "Mobile Number":7878787878,
         "Branch Name": "Surya Tractors",
-        "Created By":"cnh1\\f11216a",
+        "Created By":"cnh1\\e3719ia",
         "Created Date":"2021-12-15"
     },
 
     {
         "Sr No.":8,
-        "ECode":44270,
-        "Name":"Sumit Kumar",
+        "ECode":994457,
+        "Name":" Elliot Oakley ",
         "Employee Designation":"Parts Manager",
         "Mobile Number":9950340260,
         "Branch Name": "Surya Tractors",
-        "Created By":"cnh1\\f11216a",
+        "Created By":"cnh1\\a11324q",
         "Created Date":"2022-12-14"
     },
 
     {
         "Sr No.":9,
-        "ECode":42436,
-        "Name":"Kalvinder Singh",
+        "ECode":89541,
+        "Name":"Jacob Colton",
         "Employee Designation":"Helper",
         "Mobile Number":9509656358,
         "Branch Name": "Surya Tractors",
-        "Created By":"cnh1\\f11216a",
+        "Created By":"cnh1\\a11324q",
         "Created Date":"2021-12-14"
     }
 ]

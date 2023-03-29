@@ -2,8 +2,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Homescreen from '../Screens/Homescreen';
 import { View, Text, StyleSheet, Image, Icon } from 'react-native'
 import ManpowerManagement from '../Screens/ManpowerManagement'
-import Settings from '../Screens/Settings'
-import FullTicketDetails from '../Screens/FullTicketDetails';
 import StackNavigator from './StackNav';
 import StackNavigatorSettings from './StackNavSettings';
 import {LinearGradient} from 'expo-linear-gradient';
